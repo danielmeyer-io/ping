@@ -1,5 +1,10 @@
 services:
   ping:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # This is exactly the same arg name as in the Dockerfile
+        JAR_FILE: build/libs/*.jar
     ports:
       - "8080:8080"
