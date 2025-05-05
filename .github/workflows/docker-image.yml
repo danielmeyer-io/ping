@@ -10,14 +10,13 @@ jobs:
   build-and-docker:
     runs-on: ubuntu-latest
     steps:
-      # 1 — check out code
+      - name: checkout code
       - uses: actions/checkout@v4
 
-      # 2 — build the JAR with Gradle
+      - name: build project with gradle
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: bootJar            # creates build/libs/*.jar
 
-      # 3 — build the container that COPY‑ies that JAR
       - name: Build Docker image
-        run: docker build . --file Dockerfile --build-arg JAR_FILE=build/libs/\*.jar --tag my-image-name:$(date +%s)
+        run: docker build . --file Dockerfile --build-arg JAR_FILE=build/libs/\*.jar --tag ping:$(date +%s)
