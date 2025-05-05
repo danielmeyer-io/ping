@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/gradle-build-action@v3
+      - uses: actions/setup-java@v4
         with:
-          arguments: bootJar            # creates build/libs/*.jar
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'           # creates build/libs/*.jar
+      - name: build Gradle
+        run: ./gradlew build
       - name: Build Docker image
         run: docker build . --file Dockerfile --build-arg JAR_FILE=build/libs/\*.jar --tag ping:$(date +%s)
