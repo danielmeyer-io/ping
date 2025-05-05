@@ -10,13 +10,8 @@ jobs:
   build-and-docker:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
       - uses: actions/checkout@v4
-
-      - name: build project with gradle
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: bootJar            # creates build/libs/*.jar
-
-      - name: Build Docker image
         run: docker build . --file Dockerfile --build-arg JAR_FILE=build/libs/\*.jar --tag ping:$(date +%s)
