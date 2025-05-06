@@ -1,8 +1,5 @@
 # Use a base image with Java
 FROM openjdk:21-jdk
-
-# Copy the built jar file into the image
-COPY build/libs/*.jar app.jar
-
-# Set the entry point to run your application
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
